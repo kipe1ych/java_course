@@ -1,4 +1,4 @@
-package stage1;
+package ru.aston.homework.module1.part1;
 
 abstract class Fish extends Animal implements LivingInWater {
 
