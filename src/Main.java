@@ -8,10 +8,10 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        List<Student> students = Arrays.asList(
+        List<Student> students = List.of(
                 new Student(
                         "Иванов",
-                        Arrays.asList(
+                        List.of(
                             new Book("Война и мир", 1868, 1300),
                             new Book("Горе от ума", 2017, 400),
                             new Book("Евгений Онегин", 1999, 410),
@@ -21,7 +21,7 @@ public class Main {
                 ),
                 new Student(
                         "Петров",
-                        Arrays.asList(
+                        List.of(
                             new Book("Чудесный доктор", 2015, 440),
                             new Book("Преступление и наказание", 1997, 450),
                             new Book("Ревизор", 2013, 480),
@@ -33,7 +33,7 @@ public class Main {
                 ),
                 new Student(
                         "Сидоров",
-                        Arrays.asList(
+                        List.of(
                             new Book("Муму", 1995, 490),
                             new Book("Шинель", 2012, 500),
                             new Book("Мертвые души", 2011, 520),
@@ -44,20 +44,19 @@ public class Main {
                 )
         );
 
-        // При помощи одного (не допускается объявления никаких промежуточных переменных, совсем никаких) стрима:
         students.stream()
-                .peek(System.out::println) // Вывести в консоль каждого студента (переопределите toString)
-                .flatMap((student)->student.getBooks().stream()) // Получить для каждого студента список книг
-                .sorted(Comparator.comparingInt(Book::getPages)) // Отсортировать книги по количеству страниц (Не забывайте про условия для сравнения объектов)
-                .distinct() // Оставить только уникальные книги
-                .filter((book)->book.getYear() > 2000) // Отфильтровать книги, оставив только те, которые были выпущены после 2000 года
-                .limit(3) // Ограничить стрим на 3 элементах
-                .map(Book::getYear) // Получить из книг годы выпуска
-                .findFirst() // При помощи методов короткого замыкания (почитайте самостоятельно что это такое) вернуть Optional от книги
+                .peek(System.out::println)
+                .flatMap((student)->student.getBooks().stream())
+                .sorted(Comparator.comparingInt(Book::getPages))
+                .distinct()
+                .filter((book)->book.getYear() > 2000)
+                .limit(3)
+                .map(Book::getYear)
+                .findFirst()
                 .ifPresentOrElse(
                         (year)->System.out.println("Год выпуска книги: " + year),
                         ()->System.out.println("Книга отсутствует")
-                ); // При помощи методов получения значения из Optional вывести в консоль год выпуска найденной книги, либо запись о том, что такая книга отсутствует
+                );
     }
 
 

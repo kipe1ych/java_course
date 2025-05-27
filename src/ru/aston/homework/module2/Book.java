@@ -30,7 +30,7 @@ public class Book {
         if(this == o) return true;
         if(o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        // сравним название, год, количество страниц
+
         return year == book.year && pages == book.pages && title.equals(book.title);
     }
 
